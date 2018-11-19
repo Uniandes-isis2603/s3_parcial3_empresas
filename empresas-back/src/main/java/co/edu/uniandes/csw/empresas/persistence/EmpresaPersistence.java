@@ -43,7 +43,7 @@ public class EmpresaPersistence {
 
     private static final Logger LOGGER = Logger.getLogger(EmpresaPersistence.class.getName());
 
-    @PersistenceContext(unitName = "BookStorePU")
+    @PersistenceContext(unitName = "DBParcialPU")
     protected EntityManager em;
 
     /**
