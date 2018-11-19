@@ -22,5 +22,5 @@
         <property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"/>
         <property name="createDatabase" value="drop and create"/>
     </jdbc-connection-pool>
-    <jdbc-resource enabled="true" jndi-name="java:app/jdbc/dbParcial" object-type="user" pool-name="books_pool"/>
+    <jdbc-resource enabled="true" jndi-name="java:app/jdbc/dbParcial" object-type="user" pool-name="dbParcial_pool"/>
 </resources>
