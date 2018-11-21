@@ -46,9 +46,9 @@ import javax.enterprise.context.RequestScoped;
 import javax.ws.rs.WebApplicationException;
 
 /**
- * Clase que implementa el recurso "authors".
+ * Clase que implementa el recurso "empresas".
  *
- * @author ISIS2603
+ * @empresa ISIS2603
  * @version 1.0
  */
 @Path("/empresas")
@@ -71,9 +71,9 @@ public class EmpresaResource {
     @POST
     public EmpresaDTO create(EmpresaDTO empresa) {
         LOGGER.log(Level.INFO, "Resource create: input: {0}", empresa.toString());
-        EmpresaDTO authorDTO = new EmpresaDTO(empresaLogic.create(empresa.toEntity()));
-        LOGGER.log(Level.INFO, "Resource create: output: {0}", authorDTO.toString());
-        return authorDTO;
+        EmpresaDTO empresaDTO = new EmpresaDTO(empresaLogic.create(empresa.toEntity()));
+        LOGGER.log(Level.INFO, "Resource create: output: {0}", empresaDTO.toString());
+        return empresaDTO;
     }
 
     /**
@@ -93,21 +93,21 @@ public class EmpresaResource {
     /**
      * Busca el autor con el id asociado recibido en la URL y lo devuelve.
      *
-     * @param authorsId Identificador del autor que se esta buscando. Este debe
+     * @param empresasId Identificador del autor que se esta buscando. Este debe
      * ser una cadena de dígitos.
      * @return JSON {@link EmpresaDTO} - El autor buscado
      * @throws WebApplicationException {@link WebApplicationExceptionMapper} -
      * Error de lógica que se genera cuando no se encuentra el autor.
      */
     @GET
-    @Path("{authorsId: \\d+}")
-    public EmpresaDTO get(@PathParam("authorsId") Long authorsId) {
-        LOGGER.log(Level.INFO, "Resource get: input: {0}", authorsId);
-        EmpresaEntity authorEntity = empresaLogic.get(authorsId);
-        if (authorEntity == null) {
-            throw new WebApplicationException("El recurso /authors/" + authorsId + " no existe.", 404);
+    @Path("{empresasId: \\d+}")
+    public EmpresaDTO get(@PathParam("empresasId") Long empresasId) {
+        LOGGER.log(Level.INFO, "Resource get: input: {0}", empresasId);
+        EmpresaEntity empresaEntity = empresaLogic.get(empresasId);
+        if (empresaEntity == null) {
+            throw new WebApplicationException("El recurso /empresas/" + empresasId + " no existe.", 404);
         }
-        EmpresaDTO detailDTO = new EmpresaDTO(authorEntity);
+        EmpresaDTO detailDTO = new EmpresaDTO(empresaEntity);
         LOGGER.log(Level.INFO, "Resource get: output: {0}", detailDTO);
         return detailDTO;
     }
@@ -116,7 +116,7 @@ public class EmpresaResource {
      * Actualiza el autor con el id recibido en la URL con la información que se
      * recibe en el cuerpo de la petición.
      *
-     * @param authorsId Identificador del autor que se desea actualizar. Este
+     * @param empresasId Identificador del autor que se desea actualizar. Este
      * debe ser una cadena de dígitos.
      * @param empresa {@link DetailDTO} El autor que se desea guardar.
      * @return JSON {@link DetailDTO} - El autor guardado.
@@ -125,14 +125,14 @@ public class EmpresaResource {
      * actualizar.
      */
     @PUT
-    @Path("{authorsId: \\d+}")
-    public EmpresaDTO update(@PathParam("authorsId") Long authorsId, EmpresaDTO empresa) {
-        LOGGER.log(Level.INFO, "Resource update: input: authorsId: {0} , empresa: {1}", new Object[]{authorsId, empresa.toString()});
-        empresa.setId(authorsId);
-        if (empresaLogic.get(authorsId) == null) {
-            throw new WebApplicationException("El recurso /authors/" + authorsId + " no existe.", 404);
+    @Path("{empresasId: \\d+}")
+    public EmpresaDTO update(@PathParam("empresasId") Long empresasId, EmpresaDTO empresa) {
+        LOGGER.log(Level.INFO, "Resource update: input: empresasId: {0} , empresa: {1}", new Object[]{empresasId, empresa.toString()});
+        empresa.setId(empresasId);
+        if (empresaLogic.get(empresasId) == null) {
+            throw new WebApplicationException("El recurso /empresas/" + empresasId + " no existe.", 404);
         }
-        EmpresaDTO detailDTO = new EmpresaDTO(empresaLogic.update(authorsId, empresa.toEntity()));
+        EmpresaDTO detailDTO = new EmpresaDTO(empresaLogic.update(empresasId, empresa.toEntity()));
         LOGGER.log(Level.INFO, "Resource update: output: {0}", detailDTO.toString());
         return detailDTO;
     }

@@ -23,13 +23,14 @@ SOFTWARE.
  */
 package co.edu.uniandes.csw.empresas.entities;
 
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -44,43 +45,47 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
  * @author ISIS2603
  */
 @Entity
-public class EmpresaEntity  implements Serializable {
-   @Id
+public class EmpresaEntity implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String description;
+    private String empresa;
+    private String ciudad;
     private String image;
+    @Temporal(TemporalType.DATE)
+    private Date aniocreacion;
 
     /**
      * Devuelve el nombre del autor.
      *
-     * @return the name
+     * @return the empresa
      */
-    public String getName() {
-        return name;
+    public String getEmpresa() {
+        return empresa;
     }
 
     /**
      * Modifica el nombre del autor.
      *
-     * @param name the name to set
+     * @param empresa the empresa to set
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
 
     /**
-     * @return the description
+     * @return the ciudad
      */
-    public String getDescription() {
-        return description;
+    public String getCiudad() {
+        return ciudad;
     }
 
     /**
-     * @param description the description to set
+     * @param ciudad the ciudad to set
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     /**
@@ -111,5 +116,12 @@ public class EmpresaEntity  implements Serializable {
         this.id = id;
     }
 
-  
+    public Date getAniocreacion() {
+        return aniocreacion;
+    }
+
+    public void setAniocreacion(Date aniocreacion) {
+        this.aniocreacion = aniocreacion;
+    }
+
 }

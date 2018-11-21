@@ -21,10 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  */
-
 package co.edu.uniandes.csw.empresas.dtos;
 
-
+import co.edu.uniandes.csw.empresas.adapters.DateAdapter;
 import co.edu.uniandes.csw.empresas.entities.EmpresaEntity;
 import java.io.Serializable;
 import java.util.Date;
@@ -41,7 +40,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * <pre>
  *   {
  *      "id": number,
- *      "name": string,
+ *      "empresa": string,
  *      "birthDate": date,
  *      "image": string
  *   }
@@ -51,7 +50,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  *   {
  *      "id": 1,
- *      "name": "Gabriel García Márquez",
+ *      "empresa": "Gabriel García Márquez",
  *      "birthDate": "23091935",
  *      "image": "mifoto.com"
  *   }
@@ -63,10 +62,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class EmpresaDTO implements Serializable {
 
     private Long id;
-    private String name;
-    private String description;
+    private String empresa;
+    private String ciudad;
     private String image;
-   
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    private Date aniocreacion;
 
     /**
      * Constructor vacio
@@ -77,18 +77,17 @@ public class EmpresaDTO implements Serializable {
     /**
      * Crea un objeto DTO a partir de un objeto Entity.
      *
-     * @param Entity Entidad Entity desde la cual se va a crear el
-     * nuevo objeto.
+     * @param Entity Entidad Entity desde la cual se va a crear el nuevo objeto.
      *
      */
     public EmpresaDTO(EmpresaEntity entity) {
         if (entity != null) {
             this.id = entity.getId();
-            this.name = entity.getName();
-           
-            this.description = entity.getDescription();
+            this.empresa = entity.getEmpresa();
+            this.aniocreacion = entity.getAniocreacion();
+            this.ciudad = entity.getCiudad();
             this.image = entity.getImage();
-             
+
         }
     }
 
@@ -101,9 +100,10 @@ public class EmpresaDTO implements Serializable {
     public EmpresaEntity toEntity() {
         EmpresaEntity entity = new EmpresaEntity();
         entity.setId(this.getId());
-        entity.setName(this.getName());
-        entity.setDescription(this.description);
+        entity.setEmpresa(this.getEmpresa());
+        entity.setCiudad(this.ciudad);
         entity.setImage(this.image);
+        entity.setAniocreacion(this.getAniocreacion());
         return entity;
     }
 
@@ -128,34 +128,32 @@ public class EmpresaDTO implements Serializable {
     }
 
     /**
-     * Obtiene el atributo name.
+     * Obtiene el atributo empresa.
      *
-     * @return atributo name.
+     * @return atributo empresa.
      *
      */
-    public String getName() {
-        return name;
+    public String getEmpresa() {
+        return empresa;
     }
 
     /**
-     * Establece el valor del atributo name.
+     * Establece el valor del atributo empresa.
      *
-     * @param name nuevo valor del atributo
+     * @param empresa nuevo valor del atributo
      *
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
     }
-
-    
 
     /**
      * Obtiene el atributo descripción
      *
-     * @return the description
+     * @return the ciudad
      */
-    public String getDescription() {
-        return description;
+    public String getCiudad() {
+        return ciudad;
     }
 
     /**
@@ -170,10 +168,10 @@ public class EmpresaDTO implements Serializable {
     /**
      * Establece el atributo de descripción
      *
-     * @param description the description to set
+     * @param ciudad the ciudad to set
      */
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCiudad(String ciudad) {
+        this.ciudad = ciudad;
     }
 
     /**
@@ -189,6 +187,18 @@ public class EmpresaDTO implements Serializable {
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
-}
 
- 
+    /**
+     * @return the aniocreacion
+     */
+    public Date getAniocreacion() {
+        return aniocreacion;
+    }
+
+    /**
+     * @param aniocreacion the aniocreacion to set
+     */
+    public void setAniocreacion(Date aniocreacion) {
+        this.aniocreacion = aniocreacion;
+    }
+}
